@@ -1,0 +1,28 @@
+with indices_pv as (
+SELECT
+    Date AS date,
+    MAX(CASE WHEN market_index_id = '^ixic' THEN Open END) AS nasdaq_open,
+    MAX(CASE WHEN market_index_id = '^ixic' THEN Close END) AS nasdaq_close,
+    MAX(CASE WHEN market_index_id = 'cnyusd=x' THEN open END) AS cnyusd_open,
+    MAX(CASE WHEN market_index_id = 'cnyusd=x' THEN Close END) AS cnyusd_close,
+    MAX(CASE WHEN market_index_id = 'eurusd=x' THEN open END) AS eurusd_open,
+    MAX(CASE WHEN market_index_id = 'eurusd=x' THEN Close END) AS eurusd_close,
+    MAX(CASE WHEN market_index_id = 'dax' THEN open END) AS dax_open,
+    MAX(CASE WHEN market_index_id = 'dax' THEN Close END) AS dax_close,
+    MAX(CASE WHEN market_index_id = '^ftse' THEN Open END) AS ftse_open,
+    MAX(CASE WHEN market_index_id = '^ftse' THEN Close END) AS ftse_close,
+    MAX(CASE WHEN market_index_id = 'cl=f' THEN Open END) AS oil_price_open,
+    MAX(CASE WHEN market_index_id = 'cl=f' THEN Close END) AS oil_price_close,
+    MAX(CASE WHEN market_index_id = 'gc=f' THEN Open END) AS gold_price_open,
+    MAX(CASE WHEN market_index_id = 'gc=f' THEN Close END) AS gold_price_close,
+    MAX(CASE WHEN market_index_id = '^cmc200' THEN Open END) AS cmc200_open,
+    MAX(CASE WHEN market_index_id = '^cmc200' THEN Close END) AS cmc200_close
+    
+FROM indices_daily_rates_hist
+GROUP BY Date)
+
+SELECT c.*, nasdaq_open, nasdaq_close, cnyusd_open, cnyusd_close
+FROM crypto_daily_rates_hist c
+LEFT JOIN indices_pv h ON c.date = h.date
+
+-- how to deal with null values in the market data, probably due to weekends/ holidays 
