@@ -2,6 +2,18 @@ import requests
 import pandas as pd
 
 def get_senti_crypt():
+    """
+        This function sends a GET request to the Senticrypt API at 'https://api.senticrypt.com/v2/all.json',
+        retrieves the data in JSON format, and converts it into a Pandas DataFrame.
+
+        Returns:
+        --------
+        pandas.DataFrame or None: If the API request is successful and data is obtained, a Pandas DataFrame
+                                   containing the fetched data is returned. If there is an error during the
+                                   API request or data retrieval, None is returned, and an error message
+                                   is printed to the console.
+
+        """
     url = 'https://api.senticrypt.com/v2/all.json'
 
     try:
