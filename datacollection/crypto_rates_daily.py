@@ -13,9 +13,9 @@ dicts = data['all_cryptocurrencies_us']['quotes']
 symbols = [d['symbol'] for d in dicts]
 
 # initializing Parameters
-start_date= "05/01/2023"    # the date we want to start from
+start_date = "05/01/2023"    # the date we want to start from
 end_date = None             # the end date, None = today
-index_as_date= False        # Set the date as index of the df
+index_as_date = False        # Set the date as index of the df
 interval = "1d"             # retrieving the data on a daily basis
 
 # 1- FUNCTION to retrieve the data of a single ticker (AND OPTIONAL) saving the csv files locally.
@@ -33,22 +33,25 @@ def ticker_data(symbol):
     #cleaning the symobol name and columns names for sql use
     symbol_clean = symbol.lower().replace(" ","").replace("-","_")
     df.columns = [x.lower().replace(" ","").replace("-","_") for x in df.columns]
-    
-    # Returning the DataFrame and symol cleaned
-    path= f"/mnt/c/data_csv/{symbol_clean}.csv"
+
+    # saving locally
+    """path= f"/mnt/c/data_csv/{symbol_clean}.csv"
     with open (path, 'w') as file:
-        df.to_csv(file, index = False, encoding='utf-8', header= True)
+        df.to_csv(file, index = False, encoding='utf-8', header= True)"""
+
+    # Returning the DataFrame and symol cleaned
     return df, symbol_clean
 
 # 2- Changing the types of columns from dtypes(python) to SQL types
 
 # 2.1 mapping
-map_dict={"datetime64[ns]":"DATE",
-              "float64": "NUMERIC",
-              "object":"VARCHAR",
-              "INT64": "INTEGER"}
+map_dict = {"datetime64[ns]":"DATE",
+          "float64": "NUMERIC",
+          "object":"VARCHAR",
+          "int64": "BIGINT"}
 
-# 2.2 FUNCTION that gives out (columns corresponding to its type ',') in SQL data types: 
+
+# 2.2 FUNCTION that gives out (columns corresponding to its type ',') in SQL data types:
 # EXAMPLE: date DATE, 
 #          open NUMERIC, 
 #          name VARCHAR,
