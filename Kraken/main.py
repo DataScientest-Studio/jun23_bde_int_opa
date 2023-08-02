@@ -22,19 +22,21 @@ def main():
     """
     # Create an instance of KrakenOrderManager and test its methods
     order_manager = KrakenOrderManager()
-
+    ordertype = "limit"
     pair = "XBTUSD"
     volume_pair = 5
     price_pair = 27500
 
     # Place a buy order and print the result
-    resp = order_manager.place_buy_order(pair, volume_pair, price_pair)
-    print("\nBuy order:")
+    resp = order_manager.place_buy_order(ordertype, pair, volume_pair, price_pair)
+    print("\n")
+    print("Buy order:")
     print(resp)
 
     # Place a sell order and print the result
-    resp = order_manager.place_sell_order(pair, volume_pair, price_pair)
-    print("\nSell order:")
+    resp = order_manager.place_sell_order(ordertype, pair, volume_pair, price_pair)
+    print("\n")
+    print("Sell order:")
     print(resp)
 
     # Create an instance of KrakenAPIMarketData and test its methods
