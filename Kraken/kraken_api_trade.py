@@ -12,7 +12,7 @@ class KrakenOrderManager:
             validate_value (bool, optional): When set to True, orders won't be placed, only tested.
                                             Default is True.
         """
-        
+
         self.api_key = load_api_keys()[0]
         self.api_sec = load_api_keys()[1]
         self.api_url = "https://api.kraken.com"
@@ -88,7 +88,7 @@ class KrakenOrderManager:
         data = self._create_data_payload(ordertype, "buy", pair, volume, price)
         response = self._send_kraken_request(self.uri_path_add_order, headers, data)
         return response
-# ordertype, buy_sell_type, pair, volume, price):
+
     def place_sell_order(self, ordertype, pair, volume, price):
         """
         Place a sell order on the Kraken exchange.
@@ -106,11 +106,11 @@ class KrakenOrderManager:
         response = self._send_kraken_request(self.uri_path_add_order, headers, data)
         return response
 
+
 if __name__ == "__main__":
     # Create an instance of KrakenOrderManager
     order_manager = KrakenOrderManager()
     ordertype = "limit"
-
     pair = "XBTUSD"
     volume_pair = 5
     price_pair = 27500
