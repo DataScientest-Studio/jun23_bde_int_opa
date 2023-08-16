@@ -89,7 +89,6 @@ class KrakenOrderManager:
         response = self._send_kraken_request(self.uri_path_add_order, headers, data)
         return response
 
-    # ordertype, buy_sell_type, pair, volume, price):
     def place_sell_order(self, ordertype, pair, volume, price):
         """
         Place a sell order on the Kraken exchange.
